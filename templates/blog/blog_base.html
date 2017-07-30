@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block nav_2 %}focus{% endblock %}
+{% load staticfiles %}
+
+{% block extra_link %}
+	<link href="{% static 'css/blog.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'syntaxhighlighter/css/shCore.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'syntaxhighlighter/css/shThemeDefault.css' %}" type="text/css" rel="stylesheet">
+	{% block inner_extra_link %}{% endblock %}
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/placeholder.js' %}"></script>
+	<script src="{% static 'syntaxhighlighter/js/XRegExp.js' %}" type="text/javascript"></script>
+	<script src="{% static 'syntaxhighlighter/js/shCore.js' %}" type="text/javascript"></script>
+	<script src="{% static 'syntaxhighlighter/js/shAutoloader.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/syntaxhighlighter_autoloads.js' %}" type="text/javascript"></script>
+{% endblock %}
+{#{% block inner_extra_js %}{% endblock %}#}

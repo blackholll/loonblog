@@ -1,0 +1,127 @@
+{% extends "blog/blog_base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block extra_link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-multiselect.css' %}" >
+
+{% endblock %}
+
+
+
+
+{% block container %}
+    <div class="blogeditBox">
+    <form class="form-horizontal" name="blog_edit_form" id="blog_edit_form"
+{#                                  role="form" enctype="multipart/form-data" action="/blog/add/" method="post">#}
+                                  role="form" enctype="multipart/form-data" action="{{ post_url }}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">标题<i style='color:red'>*</i></label>
+            <div class="col-xs-10 align-left">
+                <input required type="text" class="form-control required" name="title"
+                       placeholder="请输入文章标题" value = {{ query_result0.title }}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="topic" class="col-sm-1 col-sm-offset-1 control-label">主题<i style='color:red'>*</i></label>
+            <div class="col-xs-5 align-left">
+                <select class="form-control select2 required" id="topic" name="topic"
+                        data-placeholder="选择主题" style="width: 100%;">
+                    {% if topic_list %}
+                    {% for topic in topic_list %}
+                        {% ifequal query_result0.topic_id topic.id %}
+                        <option value="{{ topic.id }}" selected>{{ topic.name }}</option>
+                        {% else %}
+                    <option value="{{ topic.id }}" >{{ topic.name }}</option>
+                        {% endifequal %}
+                    {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <label for="category" class="col-sm-1 control-label">分类<i style='color:red'>*</i></label>
+            <div class="col-xs-4 align-left">
+                <select class="form-control select2 required" id="category" name="category"
+                        data-placeholder="选择初始状态" style="width: 100%;">
+                    {% if category_list %}
+                    {% for category in category_list %}
+                    {% ifequal query_result0.category_id category.id %}
+                    <option value="{{ category.id }}" selected >{{ category.name }}</option>
+                    {% else %}
+                    <option value="{{ category.id }}" >{{ category.name }}</option>
+                    {% endifequal %}
+                    {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tag" class="col-sm-2 control-label">标签<i style='color:red'>*</i></label>
+            <div class="col-xs-10 align-left">
+                <select class="multiselect required" id="tag" name="tag" multiple="multiple" style="width: 600px">
+                  {% if tag_list %}
+                    {% for tag in tag_list %}
+                    {% if tag.id in tag_query_list %}
+                        <option value="{{ tag.id }}" selected>{{ tag.name }}</option>
+                    {% else %}
+                    <option value="{{ tag.id }}" >{{ tag.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="content" class="col-sm-2 control-label">内容</label>
+            <div class="col-xs-10 align-left">
+                <script id="content" name="content" type="text/plain">
+                    {{ query_result0.content|safe }}
+                </script>
+
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">保存</button>
+        </div>
+    </form>
+    </div>
+
+
+
+{% endblock %}
+
+{% block inner_extra_js %}
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'ueditor/ueditor.config.js' %}"></script>
+    <script src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+
+    <script type="text/javascript">
+        var editor = new UE.ui.Editor({initialFrameHeight:300,initialFrameWidth:1024 });
+        editor.render("content");
+        $('.multiselect').multiselect({
+            maxHeight: 500,
+            enableFiltering: true,
+            buttonWidth: '1000px',
+            filterBehavior: 'value'});
+
+        $().ready(function() {
+         $("#blog_edit_form").validate();
+        });
+    </script>
+
+{% endblock %}
+
+

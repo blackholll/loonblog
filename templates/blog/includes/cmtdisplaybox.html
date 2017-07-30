@@ -1,0 +1,18 @@
+
+<div class="comment bg2" id="cmt_box_{{ comment_query.id }}">
+	<div class="commentatorInfo bg2">
+    	<div class="fltlft">
+        	<img class="ctavatar" src="/static/image/davatar.png" width="63" height="63">
+        </div>
+        <div class="fs14 fltlft">
+        	<span class="cmtInfo"><a class="blueA commentator" href="javascript:void(0)" onclick="replay_comment('{{ comment_query.id }}','{{ comment_query.name }}')" data-id="{{ comment_query.id }}" title="点击回复TA的留言">{{ comment_query.name }}</a> 发表于 {{ comment_query.gmt_created|date:"Y-n-j H:i" }}</span>
+        </div>
+        <div class="clearfloat"></div>
+    </div>
+    <div class="cmtContent fs14 bg1">
+        <span>{{ comment_query.content|linebreaks }}</span>
+    </div>
+    {% for reply in comment_query.get_replys %}
+	    {% include "blog/includes/replydisplaybox.html" %}
+    {% endfor %}
+</div>

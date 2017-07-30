@@ -1,0 +1,59 @@
+{% extends "blog/blog_base.html" %}
+{% load staticfiles %}
+
+
+{% block inner_extra_link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" >
+{% endblock %}
+
+{% block inner_extra_js %}
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/loonapp.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ blog.title }} - 文章详情 - Loonapp{% endblock %}
+{% block meta_desc %}{{ blog.title }}: {{ blog.content|striptags|truncatechars:100 }}{% endblock %}
+{#{% block meta_keywords %}{{ blog_dict.tag_list|join:"," }}{% endblock %}#}
+
+{% block container %}
+	<div class="normBox">
+		{% include "blog/includes/sidebar.html" %}
+    	{% include "blog/includes/blogbox.html" %}
+        {% if comment_list_query %}
+        <div class="cmtBox fltlft">
+            <div id="cmtTitle">
+                <span class="fs24">有<span id="cmt_count">{{ comment_list_query.count }}</span>条留言：</span>
+            </div>
+            {% for comment_query in comment_list_query %}
+                {% include "blog/includes/cmtdisplaybox.html" %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div id="new_cmt">
+
+        </div>
+
+        {% include "blog/includes/cmtformbox.html" %}
+        <div class="clearfloat"></div> 
+	<!-- end blog_box --></div>
+    <div class="clearfloat"></div>
+{% endblock %}
+
+{% block popup %}
+	<div class="popupBox" style="display: none;">
+		<div class="popupLayout"></div>
+		<div class="errorMessage">
+			<div class="mainBox">
+		        <div class="errorTitle fs24">
+		            <span id="error_title"></span>
+		  		</div>
+		        <div class="errorDetail fs16">
+		        	<span id="error_msg"></span>
+		        </div>
+		        <div class="btnBox textRight">
+		        	<button class="writeBtn" id="error_confirm">确定</button>
+		        </div>
+		    </div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block nav_6 %}focus{% endblock %}
+
+{% block title %}关于- Loonapp{% endblock %}
+
+{% block extra_link %}
+	<link href="{% static 'css/about.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/placeholder.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			$.fn.placeholder();
+		})
+	</script>
+	{% block inner_extra_js %}{% endblock %}
+{% endblock %}
+
+{% block meta_desc %}Loonapp关于与意见反馈。Loonapp是blackholll的个人网站，采用的Python Django框架开发而成，意在学习、分享与记录。技术专注于Python、运维及前端开发，包括Python、Django、HTML、CSS、JavaScript、Linux等。{% endblock %}
+{% block meta_keywords %}关于,意见反馈,个人网站,Python,Django{% endblock %}
+
+{% block container %}
+	<div class="normBox" id="about_by_cate">
+    	<div class="varea">
+            <div class="title pt16 fs30 textCenter">
+                <span>关于</span>
+            </div>
+            <div class="aboutBox pt26">
+            	<div class="themeBox enFont">
+                	<div class="textCenter themeTitle" id="about_me">
+                    	<span class="commTTxt fs36">ABOUT</span>
+                    	<span class="themeTxt fs18">ME</span>
+                    </div>
+                    <div class="fltrt aboutTxt bg1">
+                        {% if about_mes %}
+                        {% for about_me in about_mes %}
+                        <span>{{ about_me.description|safe }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="clearfloat"></div>
+                </div>
+            </div>
+            <div class="aboutBox pt42">
+            	<div class="themeBox enFont">
+                	<div class="aboutTxt bg1">
+                        {% if about_loonapps %}
+                        {% for about_loonapp in about_loonapps %}
+                        <span>{{ about_loonapp.description|safe }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="fltrt textCenter themeTitle" id="about_dannysite">
+                        
+                        <span class="commTTxt fs36">ABOUT</span>
+                        
+                        <span class="themeTxt fs18">LOONAPP</span>
+                    </div>
+               	 	<div class="clearfloat"></div>
+                </div>
+            </div>
+            <div class="aboutBox pt42">
+            	<div class="themeBox enFont">
+                    <div class="textCenter themeTitle" id="about_copyright">
+                        <span class="commTTxt fs36">ABOUT</span>
+                        <span class="themeTxt fs18">COPYRIGHT</span>
+                    </div>
+                    <div class="fltrt aboutTxt bg1">
+                        {% if about_copyrights %}
+                        {% for about_copyright in about_copyrights %}
+                        <span>{{ about_copyright.description|safe }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="clearfloat"></div>
+                </div>
+            </div>
+        </div>
+	<!-- end about_by_cate --></div>
+{% endblock %}

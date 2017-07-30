@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block nav_4 %}focus{% endblock %}
+
+{% block title %}兴趣{% endblock %}
+
+{% block extra_link %}
+	<link href="{% static 'css/about.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/placeholder.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			$.fn.placeholder();
+		})
+	</script>
+	{% block inner_extra_js %}{% endblock %}
+{% endblock %}
+
+{% block meta_desc %}Loonapp关于与意见反馈。Loonapp是blackholll的个人网站，采用的Python Django框架开发而成，意在学习、分享与记录。技术专注于Python、运维及前端开发，包括Python、Django、HTML、CSS、JavaScript、Linux等。{% endblock %}
+{% block meta_keywords %}关于,意见反馈,个人网站,Python,Django{% endblock %}
+
+{% block container %}
+	<div class="normBox" id="about_by_cate">
+    	<div class="varea">
+            <div class="title pt16 fs30 textCenter">
+                <span>敬请期待...</span>
+            </div>
+
+	<!-- end about_by_cate --></div>
+{% endblock %}

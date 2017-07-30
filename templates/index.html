@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block nav_1 %}focus{% endblock %}
+{% block extra_link %}
+<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block container %}
+    <div class="normBox textCenter">
+        <span class="fs36 block">欢迎访问我的网站-潜鸟</span>
+        <span class="fs28 block pt22 enFont"> Welcome To my website-loonapp</span>
+    </div>
+
+    <div class="normBox" id="blog_box">
+        <div class="listBox top1 fltlft ">
+            <ul>
+                <li class="listTitle textCenter">分类排行</li>
+                {% if top_categorys %}
+                {% for top_category in top_categorys %}
+                <a href="/blog/?cat={{ top_category.id }}"><li class="listItem textCenter">{{ top_category.name|truncatechars:20  }}({{ top_category.count }})</li></a>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <div class="listBox top2 fltlft ml58">
+            <ul>
+                <li class="listTitle textCenter">最近更新</li>
+                {% if new_blogs %}
+                {% for new_blog in new_blogs %}
+                <a href="/blog/{{ new_blog.id }}/"><li class="listItem textCenter">{{ new_blog.title|truncatechars:20  }}</li></a>
+                {% endfor %}
+                {% endif %}
+
+            </ul>
+        </div>
+        <div class="listBox top3 fltlft ml58">
+            <ul>
+                <li class="listTitle textCenter">热门排行</li>
+                {% if hot_blogs %}
+                {% for hot_blog in hot_blogs %}
+                <a href="/blog/{{ hot_blog.id }}/"><li class="listItem textCenter">{{ hot_blog.title|truncatechars:20 }}</li></a>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+
+{% endblock %}
+

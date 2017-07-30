@@ -1,0 +1,10 @@
+
+<div class="{% cycle 'replyBoxOdd' 'replyBoxEven bg2' %}">
+    <div class="replyContent {% cycle 'fltlft' 'fltrt' %} fs14">
+        <span><a class="blueA commentator" href="javascript:void(0)" onclick="replay_comment('{{ reply.id}}','{{ reply.name  }}')" title="点击回复TA的留言">{{ reply.name }}</a> 回复说：{{ reply.content|linebreaksbr }}</span>
+    </div>
+    <div class="replyerAvatar {% cycle 'fltrt' 'fltlft' %}">
+        <img class="ctavatar" src="/static/image/davatar.png" width="63" height="63">
+    </div>
+    <div class="clearfloat"></div>
+</div>

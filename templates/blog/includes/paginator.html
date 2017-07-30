@@ -1,0 +1,31 @@
+<div class="paginator fltlft textRight" id="blog_paginator">
+    {% if cat %}
+        {% if has_pre %}
+            <a class="pageItem" href="/blog/?page=1&cat={{ cat }}"><<</a>
+            <a class="pageItem" href="/blog/?page={{ page|add:-1 }}&cat={{ cat }}"><</a>
+        {% endif %}
+        {% if page < total_page %}
+            <a class="pageItem" href="/blog/?page=1&cat={{ cat }}">{{ page }}</a>
+        {% endif %}
+
+        {% if has_next %}
+            <a class="pageItem" href="/blog/?page={{ page|add:1 }}&cat={{ cat }}">></a>
+            <a class="pageItem" href="/blog/?page={{ total_page }}&cat={{ cat }}">>> </a>
+        {% endif %}
+    {% else %}
+        {% if has_pre %}
+            <a class="pageItem" href="/blog/?page=1"><<</a>
+            <a class="pageItem" href="/blog/?page={{ page|add:-1 }}"><</a>
+        {% endif %}
+        {% if page < total_page %}
+            <a class="pageItem" href="/blog/?page=1">{{ page }}</a>
+        {% endif %}
+
+        {% if has_next %}
+            <a class="pageItem" href="/blog/?page={{ page|add:1 }}">></a>
+            <a class="pageItem" href="/blog/?page={{ total_page }}">>> </a>
+        {% endif %}
+    {% endif %}
+
+
+</div>

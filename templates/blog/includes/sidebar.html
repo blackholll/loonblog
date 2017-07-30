@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<div class="fltrt sidebar">
+{#	<div class="searchBox">#}
+{#    	<form action="" method="get" id="search_form">#}
+{#    		<input class="xnorminput" id="search" name="search" type="text" placeholder="搜索文章" disabled />#}
+{#        </form>#}
+{#        <div class="searchIcon" onclick="document.getElementById('search_form').submit();"id="search_icon"></div>#}
+{#    </div>#}
+    <div class="listBox2 mt37">
+        <ul>
+            <li class="listTitle textCenter">CATEGORIES</li>
+            {% for category_list_query0 in category_list_query %}
+            	<a href="/blog/?cat={{ category_list_query0.id }}"><li class="listItem fltlft textCenter">{{ category_list_query0.name }}</li></a>
+            {% endfor %}
+            <li class="clearfloat"></li>
+        </ul>
+    </div>
+
+    <div class="tagBox mt37">
+    	<div class="title textCenter">TOPICS</div>
+        <div class="tags textCenter">
+        	{% for topic_query in topic_list_query %}
+        		<a class="tagItem" href="/blog/?topic={{ topic_query.id }}">{{ topic_query.name }}</a>
+        	{% endfor %}
+        </div>
+    </div>
+
+
+</div>

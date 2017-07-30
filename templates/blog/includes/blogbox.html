@@ -1,0 +1,42 @@
+<div class="blogBox fltlft">
+	<div class="topBox">
+    	<div class="timeBox fltlft enFont textCenter">
+            <span class="fs2" id="time_month">{{ blog.gmt_created|date:"d MY" }}</span>
+        </div>
+        <div class="infoBox fltrt">
+        	<div class="fs26 bg1" id="blog_title">
+            	<a class="normDecorA" href="/blog/{{ blog.id }}/">{{ blog.title }}</a>
+            </div>
+            <div class="fs14 bg2" id="blog_ct">
+            	<span class="fltlft" id="blog_cate"><a class="blueA" href="?cat={{ blog.category_id }}">{{ blog.category }}</a></span>
+            	<span class="fltlft" id="blog_cate"><a class="blueA" href="?cat={{ blog.topic_id }}">{{ blog.topic}}</a></span>
+                <span class="fltlft" id="blog_tags">
+                	{% for blog_tag_query0 in blog.blog_tag_query %}
+                		<a class="blueA" href="?tag={{ blog_tag_query0.tag_id}}">{{ blog_tag_query0.tag_name }}</a>
+                	{% endfor %}
+                </span>
+                <span class="clearfloat"></span>
+            </div>
+        </div>
+        <div class="clearfloat"></div>
+    </div>
+    <div class="contentBox bg1">
+
+    	{{ blog.content|safe }}
+    </div>
+    {% if relates %}
+	    <div class="blog_topic bg2">
+	    	<div class="left_title textCenter">
+	        	<span class="fs18 enFont">TOPIC</span>
+	        </div>
+	        <div class="blogs_in_topic fltrt bg1">
+	        	<ul class="blog_list fs14">
+	        		{% for blog in relates %}
+		            	<li><a class="blueA" href="{% url 'blog:blog_view' blog.id %}">{{ blog.title }}</a></li>
+	        		{% endfor %}
+	            </ul>
+	        </div>
+	        <div class="clearfloat"></div>
+	    </div>
+	{% endif %}
+</div>

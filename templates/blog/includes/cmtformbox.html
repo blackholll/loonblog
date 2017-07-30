@@ -1,0 +1,139 @@
+
+<div class="cmtInputBox fltlft">
+	<div id="cmtTitle">
+    	<span class="fs24">您来留言：</span>
+    </div>
+    <div class="cmtForm bg1 fltlft">
+        <div class="bg2" id="cutting_line"></div>
+        <div class="bg1" id="contact_form_box">
+            <form class="form-horizontal" name="comment_form" id="comment_form"
+                                  role="form" enctype="multipart/form-data" action="{% url 'comment:comment' blog.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="col-xs-1 control-label" for="name"><i style="color: red">*</i></label>
+            <div class="col-xs-6 align-left">
+                <input required type="text" class="form-control required" name="name" id="name"
+                       placeholder="您的称呼">
+            </div>
+            <div class="col-xs-5">
+                <div id="replay_coment_alert"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-1 control-label" for="email"><i style="color: red">*</i></label>
+            <div class="col-xs-6 align-left">
+                <input required type="text" class="form-control required" name="email" id="email"
+                       placeholder="您的邮箱">
+            </div>
+        </div>
+        <div id="other_input">
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-1 control-label" for="captcha"><i style="color: red">*</i></label>
+            <div class="col-xs-6 align-left">
+                <input required type="text" class="form-control required" name="captcha" id="captcha"
+                       placeholder="请输入右边的验证码" >
+            </div>
+            <img onclick="this.setAttribute('src','/comment/captcha/?nocache='+Math.random());" src="/comment/captcha/" alt="Captcha"/>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-1 control-label" for="comment_content"><i style="color: red">*</i></label>
+            <div class="col-xs-11 align-left">
+                <textarea class="form-control" name="comment_content" id="comment_content" rows="5" placeholder="期待您的留言"></textarea>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <input type="button" class="btn btn-success" onclick="submit_comment();" value="提交"></input>
+        </div>
+    </form>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+
+    function submit_comment() {
+{#        var name = document.getElementById('name').value;#}
+{#        var email = document.getElementById('email').value;#}
+{#        var captcha = document.getElementById('captcha').value;#}
+{#        var is_recomment = document.getElementById('is_recomment').value;#}
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var captcha = $('#captcha').val();
+        var is_recomment = $('#is_recomment').val();
+        var comment_content = $('#comment_content').val();
+{#        var comment_content = document.getElementById('comment_content').value;#}
+        if (name == ""){
+            alert('请填写你的称呼');
+            $("#name").focus();
+            return false;
+        }
+        if (email== ""|| ( email!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(email) ) ){
+            alert('请填写正确的邮箱');
+            $("#email").focus();
+            return false;
+        }
+        if (captcha== ""){
+            alert('请填写验证码');
+            $("#captcha").focus();
+            return false;
+        }
+        if (comment_content== ""){
+            alert('请填写内容');
+            $("#comment_content").focus();
+            return false;
+        }
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            url:"/comment/{{blog.id}}/",
+            data : {
+                'csrfmiddlewaretoken':getCookie('csrftoken'),
+                'name':name,
+                'email':email,
+                'captcha':captcha,
+                'comment_content':comment_content,
+                'is_recomment':is_recomment,
+            },
+            success:function (data) {
+                if(data.code==200){
+                    alert('留言成功');
+                    window.location.reload();
+                }
+                else if(data.code==500){
+                    alert(data.msg);
+                }
+                else{
+                    alert('发送未知错误,留言失败');
+                }
+
+            }
+        })
+
+    }
+
+    function replay_comment(id, name) {
+        var input_str = '<input type="text" name="is_recomment" id="is_recomment" hidden="hidden" value="' + id + '">';
+        $('#other_input').html(input_str);
+        var replay_coment_alert_str = '<p style="color:#1d8dcd">正在回复'+ name + '的留言...(取消)</p>';
+        var replay_coment_alert_str = '<p style="color:#1d8dcd">正在回复'+ name + '的留言...' +
+            '<a href="javascript:void(0)" onclick="cancel_replay_comment()">(取消)</>' + '</p>';
+        $('#replay_coment_alert').html(replay_coment_alert_str);
+        $('#name').focus();
+    }
+
+    function cancel_replay_comment() {
+        $('#other_input').empty();
+        $('#replay_coment_alert').empty();
+
+    }
+</script>
