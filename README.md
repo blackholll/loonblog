@@ -4,7 +4,8 @@
 ## 介绍
 - 本系统基于python(3.5)+ django(1.11.2)开发
 - 前端使用的是 http://www.dannysite.com/ 曾经的开源版本。 后端全部本人重写的
-- 欢迎访问我的个人博客 http://www.loonapp.com，使用的是本项目代码部署
+- 项目demo见我的个人博客: http://www.loonapp.com
+- 欢迎访问我的个人博客 
 
 
 ## 部署说明:
