@@ -6,7 +6,6 @@
 .idea/workspace.xml
 log/
 settings/pro.py
-migrations
 temp
 media/*
 os
