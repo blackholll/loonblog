@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'apps.about',
     'apps.blog',
     'apps.comment',
-    'raven.contrib.django.raven_compat',
 
 ]
 
